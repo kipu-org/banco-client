@@ -67,8 +67,8 @@ export const RecentTransactions: FC<{ id: string }> = ({ id }) => {
 
   return (
     <div>
-      <div className="mb-4 flex w-full justify-between space-x-2 lg:mb-6">
-        <p className="text-2xl font-semibold">{t('Dashboard.transactions')}</p>
+      <div className="mb-4 flex w-full items-center justify-between space-x-2 lg:mb-6">
+        <p className="text-xl font-semibold">{t('Dashboard.transactions')}</p>
 
         <Link
           href={ROUTES.transactions.home}

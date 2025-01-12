@@ -182,7 +182,7 @@ const PasskeyList = () => {
 
   const loading = loadingWorker || setupLoading || verifyLoading;
 
-  const getStatus = (
+  const getSubStatus = (
     passkey: GetAccountPasskeysQuery['passkey']['find_many'][0]
   ) => {
     if (passkey.encryption_enabled) {
@@ -193,12 +193,29 @@ const PasskeyList = () => {
       );
     }
 
+    if (!passkey.encryption_available) {
+      return (
+        <p className="text-sm font-medium text-green-500 dark:text-green-400">
+          {t('App.Settings.login-only')}
+        </p>
+      );
+    }
+
+    return null;
+  };
+
+  const getStatus = (
+    passkey: GetAccountPasskeysQuery['passkey']['find_many'][0]
+  ) => {
+    if (passkey.encryption_enabled) return null;
+
     if (passkey.encryption_available) {
       if (!keys) {
         return (
           <VaultButton
             lockedTitle={t('App.Settings.unlock-encrypt')}
             variant="secondary"
+            className="w-full md:w-auto"
           />
         );
       }
@@ -208,17 +225,14 @@ const PasskeyList = () => {
           variant="secondary"
           onClick={() => setup({ variables: { id: passkey.id } })}
           disabled={loading}
+          className="w-full md:w-auto"
         >
           {t('App.Settings.enable-encrypt')}
         </Button>
       );
     }
 
-    return (
-      <p className="text-sm font-medium text-green-500 dark:text-green-400">
-        {t('App.Settings.login-only')}
-      </p>
-    );
+    return null;
   };
 
   if (!passkeys.length) {
@@ -233,14 +247,21 @@ const PasskeyList = () => {
 
       <div className="w-full space-y-6">
         {passkeys.map(p => (
-          <Setting
+          <div
             key={p.id}
-            title={p.name || t('Public.Login.passkey')}
-            description={format(p.created_at, 'MMM do, yyyy - HH:mm')}
-            icon={<RectangleEllipsis size={24} />}
+            className="flex flex-col items-start justify-start gap-2 md:flex-row md:items-center md:justify-between"
           >
+            <div>
+              <Setting
+                title={p.name || t('Public.Login.passkey')}
+                description={format(p.created_at, 'MMM do, yyyy - HH:mm')}
+                icon={<RectangleEllipsis size={24} />}
+              >
+                {getSubStatus(p)}
+              </Setting>
+            </div>
             {getStatus(p)}
-          </Setting>
+          </div>
         ))}
       </div>
     </div>

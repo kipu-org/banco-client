@@ -441,7 +441,7 @@ export const WalletInfo: FC<{
 
         <p className="text-center text-2xl font-semibold">{t('assets')}</p>
 
-        <div className="my-6 flex w-full flex-wrap items-end justify-evenly">
+        {/* <div className="my-6 flex w-full flex-wrap items-end justify-evenly">
           {balancePercentages.map(b => {
             const width = `w-[${b.percent}%]`;
             const height = `h-[${b.percent}%]`;
@@ -472,9 +472,9 @@ export const WalletInfo: FC<{
               </button>
             );
           })}
-        </div>
+        </div> */}
 
-        <div className="space-y-3">
+        <div className="my-6 space-y-3">
           {balancePercentages.map(b => (
             <button
               onClick={() => {

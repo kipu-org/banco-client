@@ -34,8 +34,8 @@ export const RecentContacts: FC<{ id: string }> = ({ id }) => {
 
   return (
     <div>
-      <div className="mb-4 flex w-full justify-between space-x-2 lg:mb-6">
-        <p className="text-2xl font-semibold">{t('Dashboard.recent')}</p>
+      <div className="mb-4 flex w-full items-center justify-between space-x-2 lg:mb-6">
+        <p className="text-xl font-semibold">{t('Dashboard.recent')}</p>
 
         <Link
           href={ROUTES.contacts.home}
