@@ -21,10 +21,12 @@
       "asset": "An asset in your wallet.",
       "buy": "Buy",
       "go": "Go",
+      "invite": "Invite",
       "liquid-explainer": "Liquid Bitcoin (L-BTC) is a wrapped version of Bitcoin (BTC) issued by the Liquid Network, a sidechain-based, Bitcoin layer-2 settlement network. It is a 1:1 pegged asset, meaning that one L-BTC is equivalent to one BTC. L-BTC is designed to improve the functionality of Bitcoin transactions, issuance of digital assets, and exchanges.",
       "no-contacts": "No contacts to display.",
       "price": "Price",
       "recent": "Recent Contacts",
+      "referral": "Invite five friends to customize your MIBAN code.",
       "secure": "Please secure your account with a stronger password.",
       "sell": "Sell",
       "tether-explainer": "Tether (USDT) is a stablecoin, a type of cryptocurrency designed to maintain a stable value relative to a fiat currency, in this case, the United States dollar (USD). It is issued by Tether Limited, a company founded in 2014, and is pegged to the value of the US dollar.",
@@ -83,11 +85,14 @@
     },
     "Wallet": {
       "Settings": {
-        "decrypt": "Decrypt to view your wallet’s secret mnemonic.",
+        "decrypt": "Decrypt to view your wallet's secret mnemonic.",
         "decrypted": "Decrypted Mnemonic",
         "descriptor": "Descriptor",
         "miban": "Share this code with other people to receive payments.",
         "name": "Wallet Name",
+        "referral": "Customize your Code",
+        "referral-button": "Unlock",
+        "referral-description": "Invite five friends to unlock.",
         "settings": "Wallet Settings",
         "tech-info": "Technical information about your wallet, helpful for advanced recovery.",
         "unlock": "Unlock to Decrypt"

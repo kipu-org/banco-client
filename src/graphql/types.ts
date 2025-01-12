@@ -878,6 +878,7 @@ export type WalletDetails = {
 export type WalletMutations = {
   __typename?: 'WalletMutations';
   broadcast_liquid_transaction: BroadcastLiquidTransaction;
+  change_money_address: Scalars['Boolean']['output'];
   change_name: Scalars['Boolean']['output'];
   create: CreateWallet;
   create_lightning_invoice: CreateLightingInvoice;
@@ -888,6 +889,11 @@ export type WalletMutations = {
 
 export type WalletMutationsBroadcast_Liquid_TransactionArgs = {
   input: BroadcastLiquidTransactionInput;
+};
+
+export type WalletMutationsChange_Money_AddressArgs = {
+  id: Scalars['String']['input'];
+  money_address_user: Scalars['String']['input'];
 };
 
 export type WalletMutationsChange_NameArgs = {

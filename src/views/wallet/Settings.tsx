@@ -11,9 +11,13 @@ import { Button } from '@/components/ui/button-v2';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
-import { useChangeWalletNameMutation } from '@/graphql/mutations/__generated__/wallet.generated';
+import {
+  useChangeWalletMoneyAddressMutation,
+  useChangeWalletNameMutation,
+} from '@/graphql/mutations/__generated__/wallet.generated';
 import { useGetWalletDetailsQuery } from '@/graphql/queries/__generated__/wallet.generated';
 import useCopyClipboard from '@/hooks/useClipboardCopy';
+import { useUser } from '@/hooks/user';
 import { useKeyStore } from '@/stores/keys';
 import { LOCALSTORAGE_KEYS } from '@/utils/constants';
 import { handleApolloError } from '@/utils/error';
@@ -86,14 +90,41 @@ const WalletName: FC<{ walletId: string }> = ({ walletId }) => {
 };
 
 const WalletCode: FC<{ walletId: string }> = ({ walletId }) => {
-  const t = useTranslations('App');
+  const t = useTranslations();
 
   const [copiedText, copy] = useCopyClipboard();
 
-  const { data } = useGetWalletDetailsQuery({
+  const { amboss_referrals } = useUser();
+
+  const { toast } = useToast();
+
+  const { data, loading } = useGetWalletDetailsQuery({
     variables: { id: walletId },
     errorPolicy: 'ignore',
   });
+
+  const [update, { loading: updateLoading }] =
+    useChangeWalletMoneyAddressMutation({
+      onCompleted: () => {
+        toast({
+          title: 'Money address name saved.',
+        });
+      },
+      onError: err => {
+        const messages = handleApolloError(err);
+
+        toast({
+          variant: 'destructive',
+          title: 'Error saving new name.',
+          description: messages.join(', '),
+        });
+      },
+      refetchQueries: ['getWalletDetails', 'getAllWallets'],
+    });
+
+  const [moneyAddress, setMoneyAddress] = useState<string>(
+    data?.wallets.find_one.money_address?.[0].user || ''
+  );
 
   const address = useMemo(() => {
     if (!data?.wallets.find_one.money_address.length) return '';
@@ -103,28 +134,108 @@ const WalletCode: FC<{ walletId: string }> = ({ walletId }) => {
     return first.user + '@' + first.domains[0];
   }, [data]);
 
+  const amountOfReferrals = useMemo(() => {
+    if (!amboss_referrals.length) return 0;
+    return amboss_referrals.reduce((p, c) => {
+      if (!c.current_uses) return p;
+      return p + c.current_uses;
+    }, 0);
+  }, [amboss_referrals]);
+
+  useEffect(() => {
+    if (loading) return;
+    if (!data?.wallets.find_one.money_address.length) return;
+    if (!!moneyAddress) return;
+
+    const first = data.wallets.find_one.money_address[0];
+    setMoneyAddress(first.user);
+  }, [data, loading, moneyAddress]);
+
   return (
     <div>
-      <Label htmlFor="address">{t('miban')}</Label>
+      <div>
+        <Label htmlFor="address">{t('App.miban')}</Label>
 
-      <p className="my-2 text-sm text-neutral-400">
-        {t('Wallet.Settings.miban')}
-      </p>
+        <p className="my-2 text-sm text-neutral-400">
+          {t('App.Wallet.Settings.miban')}
+        </p>
 
-      <div className="flex items-center gap-2">
-        <Input id="address" readOnly defaultValue={address} />
+        <div className="flex items-center gap-2">
+          <Input id="address" readOnly defaultValue={address} />
 
-        <button
-          onClick={() => copy(address)}
-          disabled={!address}
-          className="px-2 transition-opacity hover:opacity-75 disabled:cursor-not-allowed"
-        >
-          {copiedText ? (
-            <CopyCheck size={24} stroke="#22c55e" />
-          ) : (
-            <Copy size={24} />
-          )}
-        </button>
+          <button
+            onClick={() => copy(address)}
+            disabled={!address}
+            className="px-2 transition-opacity hover:opacity-75 disabled:cursor-not-allowed"
+          >
+            {copiedText ? (
+              <CopyCheck size={24} stroke="#22c55e" />
+            ) : (
+              <Copy size={24} />
+            )}
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <div className="flex gap-2">
+          <div>
+            <CornerDownRight size={16} className="text-neutral-500" />
+          </div>
+
+          <div className="w-full">
+            <div className="flex items-center space-x-2">
+              <Label htmlFor="money-address">
+                {t('App.Wallet.Settings.referral')}
+              </Label>
+            </div>
+
+            <p className="my-2 text-sm text-green-500">
+              {amountOfReferrals < 5
+                ? t('App.Wallet.Settings.referral-description')
+                : null}
+            </p>
+
+            <div className="flex flex-col items-center gap-2 sm:flex-row">
+              <Input
+                id="money-address"
+                autoComplete="off"
+                value={moneyAddress}
+                onChange={e => setMoneyAddress(e.target.value)}
+                disabled={loading}
+              />
+
+              {amountOfReferrals < 5 ? (
+                <Button
+                  variant="primary"
+                  disabled={!moneyAddress}
+                  className="w-full sm:w-fit"
+                  asChild
+                >
+                  <Link href={ROUTES.settings.referral}>
+                    {t('App.Wallet.Settings.referral-button')}
+                  </Link>
+                </Button>
+              ) : (
+                <Button
+                  variant="secondary"
+                  onClick={() => {
+                    update({
+                      variables: {
+                        id: walletId,
+                        money_address_user: moneyAddress,
+                      },
+                    });
+                  }}
+                  disabled={!moneyAddress || updateLoading}
+                  className="w-full sm:w-fit"
+                >
+                  {t('App.save')}
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -245,41 +356,49 @@ const WalletMnemonic: FC<{ walletId: string }> = ({ walletId }) => {
       </div>
 
       <div className="mt-4">
-        <div className="flex items-start space-x-2">
-          <CornerDownRight size={20} className="text-neutral-500" />
-
-          <Label htmlFor="mnemonic">{t('App.Wallet.Settings.decrypted')}</Label>
-        </div>
-
-        <p className="my-2 ml-7 text-sm text-orange-400">
-          {t('Common.private')}
-        </p>
-
-        <div className="ml-7 flex flex-col items-center gap-2 sm:flex-row">
-          <div className="flex w-full items-center gap-2">
-            <Input id="mnemonic" readOnly defaultValue={mnemonic} />
-
-            <button
-              onClick={() => copyMnemonic(mnemonic)}
-              disabled={!mnemonic}
-              className="px-2 transition-opacity hover:opacity-75 disabled:cursor-not-allowed"
-            >
-              {copiedMnemonic ? (
-                <CopyCheck size={24} stroke="#22c55e" />
-              ) : (
-                <Copy size={24} />
-              )}
-            </button>
+        <div className="flex gap-2">
+          <div>
+            <CornerDownRight size={16} className="text-neutral-500" />
           </div>
 
-          <Button
-            variant="secondary"
-            onClick={() => setMnemonic('')}
-            disabled={!mnemonic}
-            className="w-full sm:w-fit"
-          >
-            {t('Common.clear')}
-          </Button>
+          <div className="w-full">
+            <div className="flex items-center space-x-2">
+              <Label htmlFor="mnemonic">
+                {t('App.Wallet.Settings.decrypted')}
+              </Label>
+            </div>
+
+            <p className="my-2 text-sm text-orange-400">
+              {t('Common.private')}
+            </p>
+
+            <div className="flex flex-col items-center gap-2 sm:flex-row">
+              <div className="flex w-full items-center gap-2">
+                <Input id="mnemonic" readOnly defaultValue={mnemonic} />
+
+                <button
+                  onClick={() => copyMnemonic(mnemonic)}
+                  disabled={!mnemonic}
+                  className="px-2 transition-opacity hover:opacity-75 disabled:cursor-not-allowed"
+                >
+                  {copiedMnemonic ? (
+                    <CopyCheck size={24} stroke="#22c55e" />
+                  ) : (
+                    <Copy size={24} />
+                  )}
+                </button>
+              </div>
+
+              <Button
+                variant="secondary"
+                onClick={() => setMnemonic('')}
+                disabled={!mnemonic}
+                className="w-full sm:w-fit"
+              >
+                {t('Common.clear')}
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

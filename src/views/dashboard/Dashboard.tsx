@@ -1,6 +1,6 @@
 'use client';
 
-import { AlertTriangle, Loader2, Shield } from 'lucide-react';
+import { AlertTriangle, Crown, Loader2, Shield } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
@@ -10,6 +10,7 @@ import { useLocalStorage } from 'usehooks-ts';
 import { Button } from '@/components/ui/button-v2';
 import { useToast } from '@/components/ui/use-toast';
 import { useGetAllWalletsQuery } from '@/graphql/queries/__generated__/wallet.generated';
+import { useUser } from '@/hooks/user';
 import { useWalletInfo } from '@/hooks/wallet';
 import { LOCALSTORAGE_KEYS } from '@/utils/constants';
 import { handleApolloError } from '@/utils/error';
@@ -29,7 +30,7 @@ const PasswordWarning = () => {
   const password = passwordStrength();
 
   return ['Very Weak', 'Weak'].includes(password) ? (
-    <div className="flex w-full items-center justify-between space-x-3 rounded-xl border border-orange-500 px-4 py-2 dark:border-orange-400">
+    <div className="flex w-full items-center justify-between space-x-3 rounded-xl border border-orange-500 bg-orange-100 px-4 py-2 dark:border-orange-400 dark:bg-transparent">
       <div className="flex items-center space-x-3">
         <Shield
           size={24}
@@ -39,8 +40,39 @@ const PasswordWarning = () => {
         <p className="text-sm">{t('App.Dashboard.secure')}</p>
       </div>
 
-      <Button asChild variant="secondary" className="py-1">
+      <Button asChild variant="neutral" className="py-1">
         <Link href={ROUTES.settings.password}>{t('App.Dashboard.go')}</Link>
+      </Button>
+    </div>
+  ) : null;
+};
+
+const ReferralBanner = () => {
+  const t = useTranslations();
+
+  const { amboss_referrals } = useUser();
+
+  const amountReferrals = useMemo(() => {
+    if (!amboss_referrals.length) return 0;
+    return amboss_referrals.reduce((p, c) => {
+      if (!c.current_uses) return p;
+      return p + c.current_uses;
+    }, 0);
+  }, [amboss_referrals]);
+
+  return amountReferrals < 5 ? (
+    <div className="flex w-full items-center justify-between space-x-3 rounded-xl border border-green-500 bg-green-100 px-4 py-2 dark:border-green-400 dark:bg-transparent">
+      <div className="flex items-center space-x-3">
+        <Crown
+          size={24}
+          className="shrink-0 text-green-500 dark:text-green-400"
+        />
+
+        <p className="text-sm">{t('App.Dashboard.referral')}</p>
+      </div>
+
+      <Button asChild variant="neutral" className="py-1">
+        <Link href={ROUTES.settings.referral}>{t('App.Dashboard.invite')}</Link>
       </Button>
     </div>
   ) : null;
@@ -137,7 +169,10 @@ export const Dashboard = () => {
         <Loader2 className="mx-auto size-4 animate-spin" />
       ) : view === 'default' ? (
         <>
-          <PasswordWarning />
+          <div className="flex flex-col gap-2">
+            <PasswordWarning />
+            <ReferralBanner />
+          </div>
           <Warning id={value} />
           <BancoCode id={value} />
           <WalletInfo id={value} view={view} setView={setView} />

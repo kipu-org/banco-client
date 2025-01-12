@@ -17,3 +17,14 @@ export const ChangeWalletName = gql`
     }
   }
 `;
+
+export const ChangeWalletMoneyAddress = gql`
+  mutation ChangeWalletMoneyAddress(
+    $id: String!
+    $money_address_user: String!
+  ) {
+    wallets {
+      change_money_address(id: $id, money_address_user: $money_address_user)
+    }
+  }
+`;

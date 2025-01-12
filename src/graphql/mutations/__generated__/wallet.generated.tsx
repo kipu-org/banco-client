@@ -28,6 +28,16 @@ export type ChangeWalletNameMutation = {
   wallets: { __typename?: 'WalletMutations'; change_name: boolean };
 };
 
+export type ChangeWalletMoneyAddressMutationVariables = Types.Exact<{
+  id: Types.Scalars['String']['input'];
+  money_address_user: Types.Scalars['String']['input'];
+}>;
+
+export type ChangeWalletMoneyAddressMutation = {
+  __typename?: 'Mutation';
+  wallets: { __typename?: 'WalletMutations'; change_money_address: boolean };
+};
+
 export const CreateWalletDocument = gql`
   mutation CreateWallet($input: CreateWalletInput!) {
     wallets {
@@ -131,3 +141,58 @@ export type ChangeWalletNameMutationOptions = Apollo.BaseMutationOptions<
   ChangeWalletNameMutation,
   ChangeWalletNameMutationVariables
 >;
+export const ChangeWalletMoneyAddressDocument = gql`
+  mutation ChangeWalletMoneyAddress(
+    $id: String!
+    $money_address_user: String!
+  ) {
+    wallets {
+      change_money_address(id: $id, money_address_user: $money_address_user)
+    }
+  }
+`;
+export type ChangeWalletMoneyAddressMutationFn = Apollo.MutationFunction<
+  ChangeWalletMoneyAddressMutation,
+  ChangeWalletMoneyAddressMutationVariables
+>;
+
+/**
+ * __useChangeWalletMoneyAddressMutation__
+ *
+ * To run a mutation, you first call `useChangeWalletMoneyAddressMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useChangeWalletMoneyAddressMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [changeWalletMoneyAddressMutation, { data, loading, error }] = useChangeWalletMoneyAddressMutation({
+ *   variables: {
+ *      id: // value for 'id'
+ *      money_address_user: // value for 'money_address_user'
+ *   },
+ * });
+ */
+export function useChangeWalletMoneyAddressMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    ChangeWalletMoneyAddressMutation,
+    ChangeWalletMoneyAddressMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    ChangeWalletMoneyAddressMutation,
+    ChangeWalletMoneyAddressMutationVariables
+  >(ChangeWalletMoneyAddressDocument, options);
+}
+export type ChangeWalletMoneyAddressMutationHookResult = ReturnType<
+  typeof useChangeWalletMoneyAddressMutation
+>;
+export type ChangeWalletMoneyAddressMutationResult =
+  Apollo.MutationResult<ChangeWalletMoneyAddressMutation>;
+export type ChangeWalletMoneyAddressMutationOptions =
+  Apollo.BaseMutationOptions<
+    ChangeWalletMoneyAddressMutation,
+    ChangeWalletMoneyAddressMutationVariables
+  >;
