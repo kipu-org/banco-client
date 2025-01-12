@@ -132,7 +132,11 @@ export const OTP: FC<{
           onClick={() => copy(data.two_factor.otp.add.otp_secret)}
           className="transition-opacity hover:opacity-75"
         >
-          {isCopied ? <CopyCheck size={24} /> : <Copy size={24} />}
+          {isCopied ? (
+            <CopyCheck size={24} stroke="#22c55e" />
+          ) : (
+            <Copy size={24} />
+          )}
         </button>
       </div>
 

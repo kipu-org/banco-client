@@ -119,7 +119,11 @@ const WalletCode: FC<{ walletId: string }> = ({ walletId }) => {
           disabled={!address}
           className="px-2 transition-opacity hover:opacity-75 disabled:cursor-not-allowed"
         >
-          {copiedText ? <CopyCheck size={24} /> : <Copy size={24} />}
+          {copiedText ? (
+            <CopyCheck size={24} stroke="#22c55e" />
+          ) : (
+            <Copy size={24} />
+          )}
         </button>
       </div>
     </div>
@@ -260,7 +264,11 @@ const WalletMnemonic: FC<{ walletId: string }> = ({ walletId }) => {
               disabled={!mnemonic}
               className="px-2 transition-opacity hover:opacity-75 disabled:cursor-not-allowed"
             >
-              {copiedMnemonic ? <CopyCheck size={24} /> : <Copy size={24} />}
+              {copiedMnemonic ? (
+                <CopyCheck size={24} stroke="#22c55e" />
+              ) : (
+                <Copy size={24} />
+              )}
             </button>
           </div>
 
@@ -307,7 +315,11 @@ const WalletDescriptor: FC<{ walletId: string }> = ({ walletId }) => {
                 onClick={() => copy(a.descriptor)}
                 className="px-2 transition-opacity hover:opacity-75"
               >
-                {copiedText ? <CopyCheck size={24} /> : <Copy size={24} />}
+                {copiedText ? (
+                  <CopyCheck size={24} stroke="#22c55e" />
+                ) : (
+                  <Copy size={24} />
+                )}
               </button>
             </div>
           </div>

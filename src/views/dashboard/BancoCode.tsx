@@ -66,7 +66,7 @@ export const BancoCode: FC<{ id: string }> = ({ id }) => {
           <IconButton
             icon={
               copiedText === address ? (
-                <CopyCheck size={20} />
+                <CopyCheck size={20} stroke="#22c55e" />
               ) : (
                 <Copy size={20} />
               )
