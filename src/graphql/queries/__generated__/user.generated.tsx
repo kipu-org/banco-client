@@ -18,6 +18,18 @@ export type UserQuery = {
     protected_symmetric_key: string;
     default_wallet_id?: string | null;
     wallet: { __typename?: 'UserWalletInfo'; id: string; wallet_limit: number };
+    amboss?: {
+      __typename?: 'AmbossInfo';
+      id: string;
+      referral_codes: Array<{
+        __typename?: 'ReferralCode';
+        id: string;
+        code: string;
+        is_available: boolean;
+        current_uses: number;
+        max_allowed_uses: number;
+      }>;
+    } | null;
   };
 };
 
@@ -32,6 +44,16 @@ export const UserDocument = gql`
       wallet {
         id
         wallet_limit
+      }
+      amboss {
+        id
+        referral_codes {
+          id
+          code
+          is_available
+          current_uses
+          max_allowed_uses
+        }
       }
     }
   }

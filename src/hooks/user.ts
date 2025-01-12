@@ -1,6 +1,7 @@
 import { useLocalStorage } from 'usehooks-ts';
 
 import { useGetWalletContactQuery } from '@/graphql/queries/__generated__/contacts.generated';
+import { useUserQuery } from '@/graphql/queries/__generated__/user.generated';
 import { useContactStore } from '@/stores/contacts';
 import { LOCALSTORAGE_KEYS } from '@/utils/constants';
 
@@ -26,5 +27,14 @@ export const useContactInfo = () => {
       payment_options:
         data?.wallets.find_one.contacts.find_one.payment_options || [],
     },
+  };
+};
+
+export const useUser = () => {
+  const { data, loading } = useUserQuery();
+
+  return {
+    loading,
+    amboss_referrals: data?.user.amboss?.referral_codes || [],
   };
 };

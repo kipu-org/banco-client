@@ -12,6 +12,7 @@ export const ROUTES = {
     passkeys: '/settings/passkeys',
     appearance: '/settings/appearance',
     language: '/settings/language',
+    referral: '/settings/referral',
   },
   transactions: {
     home: '/transactions',

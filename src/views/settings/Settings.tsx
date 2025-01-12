@@ -2,6 +2,7 @@
 
 import {
   Brush,
+  Handshake,
   KeySquare,
   Languages,
   ShieldHalf,
@@ -15,6 +16,7 @@ import { getCookie } from '@/components/toggle/LanguageToggle';
 import { useToast } from '@/components/ui/use-toast';
 import { useGetAccountTwoFactorMethodsQuery } from '@/graphql/queries/__generated__/2fa.generated';
 import { useGetAccountPasskeysQuery } from '@/graphql/queries/__generated__/passkey.generated';
+import { useUser } from '@/hooks/user';
 import { SupportedLanguage } from '@/i18n';
 import { handleApolloError } from '@/utils/error';
 import { ROUTES } from '@/utils/routes';
@@ -75,6 +77,8 @@ export const Settings = () => {
 
   const password = passwordStrength();
 
+  const { amboss_referrals } = useUser();
+
   const { data, loading, error } = useGetAccountTwoFactorMethodsQuery({
     onError: err => {
       const messages = handleApolloError(err);
@@ -129,6 +133,26 @@ export const Settings = () => {
             alert={['Very Weak', 'Weak'].includes(password)}
             className={
               password === 'Very Strong'
+                ? 'text-green-500 dark:text-green-400'
+                : ''
+            }
+          />
+        </Link>
+
+        <Link
+          href={ROUTES.settings.referral}
+          className="block rounded-2xl p-3 transition-colors hover:bg-slate-100 dark:hover:bg-neutral-900"
+        >
+          <Setting
+            title={t('App.Settings.referral')}
+            description={
+              !!amboss_referrals.length
+                ? t('App.Settings.enabled')
+                : t('App.Settings.not-set')
+            }
+            icon={<Handshake size={24} />}
+            className={
+              !!amboss_referrals.length
                 ? 'text-green-500 dark:text-green-400'
                 : ''
             }

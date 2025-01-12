@@ -121,6 +121,16 @@ export type CreateOnchainAddressInput = {
   wallet_account_id: Scalars['String']['input'];
 };
 
+export type CreateReferralInput = {
+  max_allowed_uses?: InputMaybe<Scalars['Float']['input']>;
+  referral_code?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type CreateReferralResult = {
+  __typename?: 'CreateReferralResult';
+  success: Scalars['Boolean']['output'];
+};
+
 export type CreateTwoFactorOtp = {
   __typename?: 'CreateTwoFactorOTP';
   otp_secret: Scalars['String']['output'];
@@ -295,6 +305,7 @@ export type Mutation = {
   passkey: PasskeyMutations;
   password: PasswordMutations;
   pay: PayMutations;
+  referrals: ReferralMutations;
   refreshToken: RefreshToken;
   signUp: NewAccount;
   two_factor: TwoFactorMutations;
@@ -549,6 +560,15 @@ export type ReferralCode = {
   id: Scalars['String']['output'];
   is_available: Scalars['Boolean']['output'];
   max_allowed_uses: Scalars['Float']['output'];
+};
+
+export type ReferralMutations = {
+  __typename?: 'ReferralMutations';
+  create: CreateReferralResult;
+};
+
+export type ReferralMutationsCreateArgs = {
+  input: CreateReferralInput;
 };
 
 export type RefreshToken = {

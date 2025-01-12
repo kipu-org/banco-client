@@ -12,6 +12,16 @@ export const User = gql`
         id
         wallet_limit
       }
+      amboss {
+        id
+        referral_codes {
+          id
+          code
+          is_available
+          current_uses
+          max_allowed_uses
+        }
+      }
     }
   }
 `;
