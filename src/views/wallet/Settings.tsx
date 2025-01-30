@@ -19,7 +19,10 @@ import { useGetWalletDetailsQuery } from '@/graphql/queries/__generated__/wallet
 import useCopyClipboard from '@/hooks/useClipboardCopy';
 import { useUser } from '@/hooks/user';
 import { useKeyStore } from '@/stores/keys';
-import { LOCALSTORAGE_KEYS } from '@/utils/constants';
+import {
+  LOCALSTORAGE_KEYS,
+  MIN_REFERRALS_FOR_LN_ADDRESS_CHANGE,
+} from '@/utils/constants';
 import { handleApolloError } from '@/utils/error';
 import { ROUTES } from '@/utils/routes';
 import {
@@ -191,7 +194,7 @@ const WalletCode: FC<{ walletId: string }> = ({ walletId }) => {
             </div>
 
             <p className="my-2 text-sm text-green-500">
-              {amountOfReferrals < 5
+              {amountOfReferrals < MIN_REFERRALS_FOR_LN_ADDRESS_CHANGE
                 ? t('App.Wallet.Settings.referral-description')
                 : null}
             </p>
@@ -205,7 +208,7 @@ const WalletCode: FC<{ walletId: string }> = ({ walletId }) => {
                 disabled={loading}
               />
 
-              {amountOfReferrals < 5 ? (
+              {amountOfReferrals < MIN_REFERRALS_FOR_LN_ADDRESS_CHANGE ? (
                 <Button
                   variant="primary"
                   disabled={!moneyAddress}

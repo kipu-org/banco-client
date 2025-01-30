@@ -12,7 +12,10 @@ import { useToast } from '@/components/ui/use-toast';
 import { useGetAllWalletsQuery } from '@/graphql/queries/__generated__/wallet.generated';
 import { useUser } from '@/hooks/user';
 import { useWalletInfo } from '@/hooks/wallet';
-import { LOCALSTORAGE_KEYS } from '@/utils/constants';
+import {
+  LOCALSTORAGE_KEYS,
+  MIN_REFERRALS_FOR_LN_ADDRESS_CHANGE,
+} from '@/utils/constants';
 import { handleApolloError } from '@/utils/error';
 import { ROUTES } from '@/utils/routes';
 
@@ -60,7 +63,7 @@ const ReferralBanner = () => {
     }, 0);
   }, [amboss_referrals]);
 
-  return amountReferrals < 5 ? (
+  return amountReferrals < MIN_REFERRALS_FOR_LN_ADDRESS_CHANGE ? (
     <div className="flex w-full items-center justify-between space-x-3 rounded-xl border border-green-500 bg-green-100 px-4 py-2 dark:border-green-400 dark:bg-transparent">
       <div className="flex items-center space-x-3">
         <Crown
