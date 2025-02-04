@@ -48,7 +48,7 @@ export const ROUTES = {
     security: '/docs/security',
   },
   external: {
-    github: 'https://github.com/AmbossTech/amboss-banco',
+    github: 'https://github.com/kipu-org/banco-client',
     x: 'https://x.com/ambosstech',
     telegram: 'https://t.me/+FrzdhJw4piAzMzgx',
     support: 'mailto:support@amboss.tech',
