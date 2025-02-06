@@ -13,7 +13,7 @@ import { useTranslations } from 'next-intl';
 
 import circles from '/public/icons/circles.svg';
 import smallCircles from '/public/icons/small-circles.svg';
-import one from '/public/images/landing/1.webp';
+// import one from '/public/images/landing/1.webp';
 import two from '/public/images/landing/2.webp';
 import three from '/public/images/landing/3.svg';
 import four from '/public/images/landing/4.svg';
@@ -90,9 +90,9 @@ export default function Page() {
 
             <div className="h-[414px] overflow-hidden rounded-3xl lg:h-[818px]">
               <Image
-                src={one}
+                src={six}
                 alt="woman-coffee"
-                className="h-full object-cover object-[20%_0%]"
+                className="h-full object-cover object-[40%_0%]"
               />
             </div>
           </section>

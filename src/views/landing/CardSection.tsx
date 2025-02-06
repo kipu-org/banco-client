@@ -22,7 +22,7 @@ export const CardSection: FC<{
     >
       <div
         className={cn(
-          'flex-col justify-between lg:flex lg:h-full',
+          'flex-col justify-start lg:flex lg:h-full',
           reverse ? 'lg:order-last' : 'order-first'
         )}
       >

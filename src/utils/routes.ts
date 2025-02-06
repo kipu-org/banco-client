@@ -49,7 +49,7 @@ export const ROUTES = {
   },
   external: {
     github: 'https://github.com/kipu-org/banco-client',
-    x: 'https://x.com/ambosstech',
+    x: 'https://x.com/bancoapp',
     telegram: 'https://t.me/+FrzdhJw4piAzMzgx',
     support: 'mailto:support@amboss.tech',
     space: 'https://amboss.space',
