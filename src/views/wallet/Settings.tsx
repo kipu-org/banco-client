@@ -466,7 +466,7 @@ export const WalletSettings = () => {
           <ArrowLeft size={24} />
         </Link>
 
-        <p className="text-3xl font-semibold">{t('settings')}</p>
+        <p className="text-xl font-semibold">{t('settings')}</p>
       </div>
 
       <div className="space-y-8">

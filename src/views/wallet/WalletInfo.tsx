@@ -9,6 +9,7 @@ import {
   Eye,
   EyeOff,
   Info,
+  PieChart,
   Settings2,
 } from 'lucide-react';
 import Image from 'next/image';
@@ -395,23 +396,25 @@ export const WalletInfo: FC<{
   if (view === 'assets')
     return (
       <div className="relative">
-        <button
-          onClick={() => setView('default')}
-          className="absolute left-0 top-0 transition-opacity hover:opacity-75 lg:-left-16"
-        >
-          <ArrowLeft size={24} />
-        </button>
+        <div className="mb-4 flex">
+          <button
+            onClick={() => setView('default')}
+            className="flex items-start justify-start transition-opacity hover:opacity-75"
+          >
+            <ArrowLeft size={24} />
+          </button>
 
-        <Link
-          href={ROUTES.wallet.settings}
-          className="absolute right-0 top-0 transition-opacity hover:opacity-75 lg:-right-16"
-        >
-          <Settings2 size={24} />
-        </Link>
+          <p className="mx-auto text-balance text-center text-xl font-semibold">
+            {data?.wallets.find_one.name}
+          </p>
 
-        <p className="mx-auto mb-4 max-w-[232px] text-center text-2xl font-semibold sm:max-w-none">
-          {data?.wallets.find_one.name}
-        </p>
+          <Link
+            href={ROUTES.wallet.settings}
+            className="flex items-start justify-start transition-opacity hover:opacity-75"
+          >
+            <Settings2 size={24} />
+          </Link>
+        </div>
 
         <p className="mb-4 text-center text-4xl font-semibold lg:text-5xl">
           {totalBalance}
@@ -527,17 +530,20 @@ export const WalletInfo: FC<{
       />
 
       <div className="mb-3 flex w-full justify-between space-x-2">
-        <button
-          onClick={() => setView('assets')}
-          className="z-[1] h-fit font-semibold text-primary transition-colors hover:text-primary-hover"
-        >
+        <p className="z-[1] font-semibold text-slate-600 dark:text-neutral-400">
           {data?.wallets.find_one.name}
-        </button>
+        </p>
 
         <div className="flex space-x-2">
           <IconButton
             icon={hideBalance ? <EyeOff size={20} /> : <Eye size={20} />}
             onClick={() => setHideBalance(h => !h)}
+            className="z-[1]"
+          />
+
+          <IconButton
+            icon={<PieChart size={20} />}
+            onClick={() => setView('assets')}
             className="z-[1]"
           />
 
