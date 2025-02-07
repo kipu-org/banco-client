@@ -17,7 +17,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { useGetAccountTwoFactorMethodsQuery } from '@/graphql/queries/__generated__/2fa.generated';
 import { useGetAccountPasskeysQuery } from '@/graphql/queries/__generated__/passkey.generated';
 import { useUser } from '@/hooks/user';
-import { SupportedLanguage } from '@/i18n';
+import { SupportedLanguage } from '@/i18n/request';
 import { handleApolloError } from '@/utils/error';
 import { ROUTES } from '@/utils/routes';
 

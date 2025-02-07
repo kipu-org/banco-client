@@ -9,18 +9,8 @@ import { KeysType } from '@/stores/keys';
 export const hexToUint8Array = (str: string): Uint8Array =>
   new Uint8Array(Buffer.from(str, 'hex'));
 
-export const bufToHex = (buf: Buffer | ArrayBuffer): string =>
+export const bufToHex = (buf: Uint8Array): string =>
   Buffer.from(buf).toString('hex');
-
-export const bufToUTF8 = (buf: Buffer | ArrayBuffer): string =>
-  Buffer.from(buf).toString('utf-8');
-
-export const hexToBuf = (str: string): Buffer => Buffer.from(str, 'hex');
-
-export const uint8arrayToUtf8 = (str: Uint8Array): string => {
-  const decoder = new TextDecoder('utf-8');
-  return decoder.decode(str);
-};
 
 export const secp256k1GenerateProtectedKeyPair = ({
   symmetricKey,

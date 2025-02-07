@@ -70,7 +70,7 @@ const makeClient = (
     ({ graphQLErrors, networkError, operation, forward }) => {
       if (graphQLErrors) {
         for (const err of graphQLErrors) {
-          switch (err.extensions.code) {
+          switch (err.extensions?.code) {
             case 'UNAUTHENTICATED':
               if (operation.operationName === 'refreshToken') return;
               if (ssrMode) return;

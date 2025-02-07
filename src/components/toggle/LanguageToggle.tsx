@@ -12,7 +12,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { SupportedLanguage } from '@/i18n';
+import { SupportedLanguage } from '@/i18n/request';
 import { cn } from '@/utils/cn';
 import { localeToLanguage } from '@/views/settings/Settings';
 
