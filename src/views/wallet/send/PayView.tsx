@@ -18,9 +18,11 @@ import { useGetPriceCurrentQuery } from '@/graphql/queries/__generated__/prices.
 import { useGetWalletQuery } from '@/graphql/queries/__generated__/wallet.generated';
 import { LiquidAssetEnum } from '@/graphql/types';
 import { useKeyStore } from '@/stores/keys';
+import { cn } from '@/utils/cn';
 import { LOCALSTORAGE_KEYS } from '@/utils/constants';
 import { handleApolloError } from '@/utils/error';
 import { cryptoToUsd, formatFiat } from '@/utils/fiat';
+import { numberWithPrecisionAndDecimals } from '@/utils/numbers';
 
 import { Assets } from './Send';
 
@@ -91,6 +93,10 @@ export const PayView: FC<{
 
     if (!liquidAsset) return '-';
 
+    if (satsFirst) {
+      return `${numberWithPrecisionAndDecimals(liquidAsset.balance, 0)} sats`;
+    }
+
     const fiatBalance = cryptoToUsd(
       liquidAsset.balance,
       liquidAsset.asset_info.precision,
@@ -99,7 +105,7 @@ export const PayView: FC<{
     );
 
     return fiatBalance;
-  }, [walletData, asset]);
+  }, [walletData, asset, satsFirst]);
 
   const totalLiquidBalance = useMemo(() => {
     return walletData?.wallets.find_one.accounts
@@ -128,7 +134,7 @@ export const PayView: FC<{
         <button
           onClick={() => reset()}
           disabled={loading}
-          className="absolute left-0 top-0 transition-opacity hover:opacity-75"
+          className="absolute left-0 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-75"
         >
           <ArrowLeft size={24} />
         </button>
@@ -168,17 +174,23 @@ export const PayView: FC<{
 
       <div>
         <div className="my-20">
-          <div className="relative mb-4 border-b border-primary pb-px">
+          <div
+            className={cn(
+              'relative mb-4 rounded-xl border border-input bg-transparent py-2 shadow-sm transition-colors placeholder:text-foreground/50 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-inset focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50'
+            )}
+          >
             <input
               autoFocus={!amountSatsInput}
               id="amount"
-              type="number"
               placeholder="0"
               value={satsFirst ? amountSatsInput : amountUSDInput}
               onChange={e => {
                 if (!latestPrice) return;
 
                 const numberValue = Number(e.target.value);
+
+                if (isNaN(numberValue)) return;
+
                 const decimals = e.target.value.split('.')[1];
                 const latestPricePerSat = latestPrice / 100_000_000;
 
@@ -207,12 +219,12 @@ export const PayView: FC<{
               }}
               disabled={!latestPrice || loading || sendAll || disableInput}
               readOnly={disableInput}
-              className="w-full bg-transparent text-center text-5xl font-medium focus:outline-none"
+              className="w-full bg-transparent text-center text-4xl font-medium focus:outline-none"
             />
 
             <label
               htmlFor="amount"
-              className="absolute right-0 top-0 flex h-[62px] items-center justify-center bg-background pl-2 text-sm"
+              className="absolute right-4 top-1/2 flex -translate-y-1/2 items-center justify-center"
             >
               {satsFirst ? 'SATS' : 'USD'}
             </label>

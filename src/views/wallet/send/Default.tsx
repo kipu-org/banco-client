@@ -81,14 +81,14 @@ export const Default: FC<{
         {sendString ? (
           <button
             onClick={() => setSendString('')}
-            className="absolute left-0 top-0 transition-opacity hover:opacity-75"
+            className="absolute left-0 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-75"
           >
             <ArrowLeft size={24} />
           </button>
         ) : (
           <Link
             href={ROUTES.dashboard}
-            className="absolute left-0 top-0 transition-opacity hover:opacity-75"
+            className="absolute left-0 top-1/2 -translate-y-1/2 transition-opacity hover:opacity-75"
           >
             <ArrowLeft size={24} />
           </Link>

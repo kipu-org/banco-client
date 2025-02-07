@@ -26,7 +26,7 @@
       "no-contacts": "No contacts to display.",
       "price": "Price",
       "recent": "Recent Contacts",
-      "referral": "Invite two friends to customize your LN address.",
+      "referral": "Invite two friends to customize your Lightning address.",
       "secure": "Please secure your account with a stronger password.",
       "sell": "Sell",
       "tether-explainer": "Tether (USDT) is a stablecoin, a type of cryptocurrency designed to maintain a stable value relative to a fiat currency, in this case, the United States dollar (USD). It is issued by Tether Limited, a company founded in 2014, and is pegged to the value of the US dollar.",
@@ -92,7 +92,7 @@
         "name": "Wallet Name",
         "referral": "Customize your Code",
         "referral-button": "Unlock",
-        "referral-description": "Invite five friends to unlock.",
+        "referral-description": "Invite two friends to unlock.",
         "settings": "Wallet Settings",
         "tech-info": "Technical information about your wallet, helpful for advanced recovery.",
         "unlock": "Unlock to Decrypt"

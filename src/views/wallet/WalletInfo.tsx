@@ -396,7 +396,7 @@ export const WalletInfo: FC<{
   if (view === 'assets')
     return (
       <div className="relative">
-        <div className="mb-4 flex">
+        <div className="mb-4 flex items-center">
           <button
             onClick={() => setView('default')}
             className="flex items-start justify-start transition-opacity hover:opacity-75"
