@@ -150,6 +150,7 @@
       "no-results": "Sin resultados.",
       "receive": "Recibir",
       "receive-warn": "Por favor no enviar a esta dirección más de una vez.",
+      "receive-warn2": "Por favor envía la cantidad exacta especificada o el intercambio va a fallar!",
       "recipient": "Ingrese el destinatario",
       "send": "Envíar",
       "send-options": "Dirección Lightning, factura Lightning o dirección de pago",

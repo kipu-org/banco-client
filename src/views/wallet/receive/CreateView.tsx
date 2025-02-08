@@ -162,11 +162,18 @@ export const CreateView: FC<{
       </Drawer>
 
       {state.receive === 'Bitcoin' && state.receiveString ? (
-        <Alert>
-          <AlertTriangle size={16} />
-          <AlertTitle>{c('important')}</AlertTitle>
-          <AlertDescription>{t('Wallet.receive-warn')}</AlertDescription>
-        </Alert>
+        <div className="flex flex-col gap-2">
+          <Alert variant={'warning'}>
+            <AlertTriangle size={16} />
+            <AlertTitle className="font-semibold">{c('important')}</AlertTitle>
+            <AlertDescription>{t('Wallet.receive-warn2')}</AlertDescription>
+          </Alert>
+          <Alert variant={'warning'}>
+            <AlertTriangle size={16} />
+            <AlertTitle className="font-semibold">{c('important')}</AlertTitle>
+            <AlertDescription>{t('Wallet.receive-warn')}</AlertDescription>
+          </Alert>
+        </div>
       ) : null}
 
       {loading ? (
