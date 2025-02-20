@@ -58,8 +58,13 @@ export const LoginForm = () => {
     onCompleted: data => {
       localStorage.setItem('pw', entropy.toString());
 
-      if (data.login.initial.two_factor?.methods.find(m => m.enabled)) {
-        setView('2fa');
+      const methods =
+        data.login.initial.two_factor?.methods.filter(m => m.enabled) || [];
+
+      if (methods.length) {
+        setView(
+          methods.length === 1 && methods[0].method === 'OTP' ? 'otp' : '2fa'
+        );
       } else {
         window.location.href = ROUTES.dashboard;
       }
@@ -178,26 +183,19 @@ export const LoginForm = () => {
     }
   };
 
+  const { two_factor } = data?.login.initial || { two_factor: undefined };
+
   const disabled = loading || setupPasskeyLoading || verifyPasskeyLoading;
+  const sessionId = two_factor?.session_id || '';
+  const methods = two_factor?.methods.filter(m => m.enabled) || [];
 
   if (view === '2fa')
     return (
-      <TwoFASteps
-        session_id={data?.login.initial.two_factor?.session_id || ''}
-        methods={
-          data?.login.initial.two_factor?.methods.filter(m => m.enabled) || []
-        }
-        setView={setView}
-      />
+      <TwoFASteps session_id={sessionId} methods={methods} setView={setView} />
     );
 
   if (view === 'otp')
-    return (
-      <OTPForm
-        session_id={data?.login.initial.two_factor?.session_id || ''}
-        setView={setView}
-      />
-    );
+    return <OTPForm session_id={sessionId} setView={setView} />;
 
   return (
     <div className="mx-auto max-w-96 px-4 py-10">
@@ -243,7 +241,7 @@ export const LoginForm = () => {
 
           <Button
             type="submit"
-            disabled={disabled}
+            disabled={disabled || loading}
             className="flex w-full items-center justify-center"
           >
             {loading ? (
