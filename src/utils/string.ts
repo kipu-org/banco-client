@@ -50,3 +50,13 @@ export const getAddressFromBip21 = (str: string) => {
 
   return address;
 };
+
+export const getAmountFromBip21 = (str: string) => {
+  if (!str.includes('?')) return '-';
+
+  const params = str.split('?');
+  const paramsDecoded = new URLSearchParams(params[1]);
+  const amount = Number(paramsDecoded.get('amount'));
+  const amountInSats = amount * 100_000_000;
+  return amountInSats.toFixed(0);
+};
