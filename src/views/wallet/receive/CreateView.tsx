@@ -24,6 +24,7 @@ import { cn } from '@/utils/cn';
 import { handleApolloError } from '@/utils/error';
 import { formatFiat } from '@/utils/fiat';
 import { ROUTES } from '@/utils/routes';
+import { getAmountFromBip21 } from '@/utils/string';
 
 import { ReceiveAction, ReceiveOptions, ReceiveState } from './Receive';
 
@@ -213,31 +214,55 @@ export const CreateView: FC<{
             }, 1000);
           }}
         >
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <DrawerTrigger asChild disabled={loading}>
-              {state.amountUSDSaved ? (
-                <button className="text-primary transition-colors hover:text-primary-hover">
-                  {formatFiat(Number(state.amountUSDSaved))} USD
-                </button>
-              ) : (
-                <button className="w-full text-center text-primary transition-colors hover:text-primary-hover">
-                  + {t('Wallet.amount-custom')}
-                </button>
-              )}
-            </DrawerTrigger>
-
-            {state.receive !== 'Tether USD' && state.amountSatsSaved ? (
-              <p className="text-slate-600 dark:text-neutral-400">
-                {Number(state.amountSatsSaved).toLocaleString('en-US')} sats
+          <div>
+            {state.receive === 'Bitcoin' && state.receiveString ? (
+              <p className="mb-2 text-center text-sm font-semibold">
+                Receive Amount
               </p>
             ) : null}
 
-            {state.receive === 'Tether USD' && state.amountUSDSaved ? (
-              <p className="text-slate-600 dark:text-neutral-400">
-                {formatFiat(Number(state.amountUSDSaved)).slice(1)} USDT
-              </p>
-            ) : null}
+            <div className="flex flex-wrap items-center justify-center gap-2">
+              <DrawerTrigger asChild disabled={loading}>
+                {state.amountUSDSaved ? (
+                  <button className="text-primary transition-colors hover:text-primary-hover">
+                    {formatFiat(Number(state.amountUSDSaved))} USD
+                  </button>
+                ) : (
+                  <button className="w-full text-center text-primary transition-colors hover:text-primary-hover">
+                    + {t('Wallet.amount-custom')}
+                  </button>
+                )}
+              </DrawerTrigger>
+
+              {state.receive !== 'Tether USD' && state.amountSatsSaved ? (
+                <p className="text-slate-600 dark:text-neutral-400">
+                  {Number(state.amountSatsSaved).toLocaleString('en-US')} sats
+                </p>
+              ) : null}
+
+              {state.receive === 'Tether USD' && state.amountUSDSaved ? (
+                <p className="text-slate-600 dark:text-neutral-400">
+                  {formatFiat(Number(state.amountUSDSaved)).slice(1)} USDT
+                </p>
+              ) : null}
+            </div>
           </div>
+
+          {state.receive === 'Bitcoin' && state.receiveString ? (
+            <div>
+              <p className="mb-2 text-center text-sm font-semibold">
+                Send Amount{' '}
+                <span className="text-xs font-normal">(includes fees)</span>
+              </p>
+
+              <p className="text-center text-slate-600 dark:text-neutral-400">
+                {Number(getAmountFromBip21(state.receiveString)).toLocaleString(
+                  'en-US'
+                )}{' '}
+                sats
+              </p>
+            </div>
+          ) : null}
 
           <DrawerContent>
             <div className="relative mb-4 mt-16 border-b border-primary pb-px">
