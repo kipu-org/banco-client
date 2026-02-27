@@ -9,8 +9,11 @@ import PlausibleProvider from 'next-plausible';
 
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { validateEnv } from '@/env';
 import { ApolloWrapper } from '@/lib/apollo/wrapper';
 import { ThemeProvider } from '@/lib/themes/wrapper';
+
+validateEnv();
 
 const font = IBM_Plex_Sans({
   weight: ['100', '200', '300', '400', '500', '600', '700'],

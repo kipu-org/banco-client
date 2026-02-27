@@ -211,6 +211,11 @@
       "home": "Ir al Inicio",
       "not-found": "Página No Encontrada"
     },
+    "Error": {
+      "desc": "Algo inesperado ocurrió. Por favor, inténtalo de nuevo.",
+      "retry": "Intentar de Nuevo",
+      "title": "Algo Salió Mal"
+    },
     "Footer": {
       "contact": "Contacto",
       "copyright": "Derechos de Autor",

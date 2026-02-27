@@ -116,7 +116,7 @@ const makeClient = (
   return new ApolloClient({
     cache: new InMemoryCache(),
     link,
-    connectToDevTools: true,
+    connectToDevTools: process.env.NODE_ENV !== 'production',
   });
 };
 

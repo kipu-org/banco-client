@@ -207,9 +207,14 @@
   },
   "Public": {
     "404": {
-      "desc": "It looks like the page you were looking for retired early. Let’s get you back on track!",
+      "desc": "It looks like the page you were looking for retired early. Let's get you back on track!",
       "home": "Go Home",
       "not-found": "Page Not Found"
+    },
+    "Error": {
+      "desc": "Something unexpected happened. Please try again.",
+      "retry": "Try Again",
+      "title": "Something Went Wrong"
     },
     "Footer": {
       "contact": "Contact",
