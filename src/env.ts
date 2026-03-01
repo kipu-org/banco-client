@@ -1,3 +1,4 @@
+import { PHASE_PRODUCTION_BUILD } from 'next/constants';
 import { z } from 'zod';
 
 const envSchema = z.object({
@@ -11,6 +12,8 @@ const envSchema = z.object({
 export type Env = z.infer<typeof envSchema>;
 
 export function validateEnv() {
+  if (process.env.NEXT_PHASE === PHASE_PRODUCTION_BUILD) return;
+
   const result = envSchema.safeParse(process.env);
 
   if (!result.success) {
