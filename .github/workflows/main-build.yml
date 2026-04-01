@@ -16,10 +16,10 @@ jobs:
       tags: ${{ steps.prep.outputs.tags }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6.0.2
 
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6.0.0
         with:
           aws-access-key-id: ${{ secrets.ECR_PUBLIC_ACCESS_KEY }}
           aws-secret-access-key: ${{ secrets.ECR_PUBLIC_SECRET_KEY }}
@@ -27,7 +27,7 @@ jobs:
 
       - name: Login to Amazon ECR
         id: login-ecr-public
-        uses: aws-actions/amazon-ecr-login@v2
+        uses: aws-actions/amazon-ecr-login@v2.1.1
         with:
           registry-type: public
 
@@ -56,12 +56,12 @@ jobs:
       - name: Setup Docker Buildx Driver
         id: docker_driver_setup
         if: ${{ steps.image_check.outputs.imageExists == 'false' }}
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@v4.0.0
 
       - name: Build, tag, and push image to Amazon ECR
         id: docker_build
         if: ${{ steps.image_check.outputs.imageExists == 'false' }}
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v7.0.0
         with:
           context: ./
           file: ./Dockerfile
