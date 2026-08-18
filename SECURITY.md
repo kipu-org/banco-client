@@ -2,7 +2,7 @@
 
 ## Supported Versions
 
-All versions.
+None. This project is deprecated and no longer receives security updates, including fixes for reported vulnerabilities.
 
 ## Reporting a Vulnerability
 

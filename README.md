@@ -2,6 +2,13 @@
 
 **Banking for the Unbanked.**
 
+> [!CAUTION]
+> ## This project is deprecated and no longer maintained.
+>
+> It receives **no updates, bug fixes, or security patches**, and no support is provided. Running it, or relying on any hosted instance, is entirely at your own risk.
+>
+> Vulnerability reports are still read (see [`SECURITY.md`](./SECURITY.md)) but **will not be fixed here**.
+
 This is the frontend of the BancoLibre tech stack which can be self-hosted.
 
 ## Running locally for development
