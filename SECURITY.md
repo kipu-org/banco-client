@@ -6,4 +6,4 @@ All versions.
 
 ## Reporting a Vulnerability
 
-Please report all security vulnerabilities to [ap@amboss.tech](mailto:ap@amboss.tech).
+Please report all security vulnerabilities to [security@amboss.tech](mailto:security@amboss.tech).
