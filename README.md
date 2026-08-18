@@ -3,6 +3,7 @@
 **Banking for the Unbanked.**
 
 > [!CAUTION]
+>
 > ## This project is deprecated and no longer maintained.
 >
 > It receives **no updates, bug fixes, or security patches**, and no support is provided. Running it, or relying on any hosted instance, is entirely at your own risk.
