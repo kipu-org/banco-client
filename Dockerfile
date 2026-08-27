@@ -1,34 +1,39 @@
-FROM node:20.11.1-alpine AS base
+FROM node:24.13.0-alpine AS base
 
 # ---------------
-# Setup for deps and build
+# Setup: pnpm, pnpm store path
 # ---------------
 FROM base AS setup
 
-ENV PNPM_HOME=/usr/local/bin
+RUN npm i -g pnpm@9.15.9
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
+ENV PNPM_HOME=/usr/local/bin
+ENV PNPM_STORE_DIR=/pnpm/store
+ENV CI=true
 
 RUN apk add --no-cache libc6-compat
 
-COPY . /app
 WORKDIR /app
 
-
 # ---------------
-# Install dependencies
+# Install dependencies (cached on manifests only)
 # ---------------
 FROM setup AS deps
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --ignore-scripts
+COPY package.json pnpm-lock.yaml ./
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    pnpm install --frozen-lockfile --ignore-scripts
 
 # ---------------
-# Build app
+# Build app (full source)
 # ---------------
 FROM deps AS build
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+
+COPY . .
 
 RUN pnpm run build
 
