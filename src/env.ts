@@ -21,7 +21,9 @@ export function validateEnv() {
     for (const issue of result.error.issues) {
       console.error(`  ${issue.path.join('.')}: ${issue.message}`);
     }
-    throw new Error('Missing or invalid environment variables. Check .env.example for required values.');
+    throw new Error(
+      'Missing or invalid environment variables. Check .env.example for required values.'
+    );
   }
 
   return result.data;
