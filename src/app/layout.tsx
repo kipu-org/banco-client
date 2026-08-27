@@ -7,6 +7,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import { getLocale, getMessages } from 'next-intl/server';
 import PlausibleProvider from 'next-plausible';
 
+import { DeprecationBanner } from '@/components/banner/DeprecationBanner';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { validateEnv } from '@/env';
@@ -65,6 +66,7 @@ export default async function RootLayout({
                 accessToken={accessToken}
                 refreshToken={refreshToken}
               >
+                <DeprecationBanner />
                 {children}
                 <Toaster />
               </ApolloWrapper>

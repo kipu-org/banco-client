@@ -185,6 +185,19 @@
     "refresh": "Please <refresh>refresh</refresh> to try again.",
     "your-password": "Your password"
   },
+  "Deprecation": {
+    "banner": "BancoLibre is being deprecated. Please move your funds to another wallet, such as the",
+    "banner-link": "Blockstream app.",
+    "how-to": "How do I move my funds?",
+    "dialog-title": "Move your funds to the Blockstream app",
+    "dialog-description": "BancoLibre is shutting down. Follow these steps to recover your seed phrase and access your funds in the Blockstream app.",
+    "step-one": "Go to <link>Wallet Settings</link>, unlock with your password and decrypt your mnemonic (seed phrase).",
+    "step-two": "Copy the 12 words and store them somewhere safe. Anyone with these words can access your funds.",
+    "step-three": "Download the <link>Blockstream app</link> on your phone or computer.",
+    "step-four": "In the Blockstream app, choose “Restore wallet” and enter your seed phrase.",
+    "step-five": "Your funds will now be available in the Blockstream app.",
+    "warning": "Never share your seed phrase with anyone. BancoLibre support will never ask you for it."
+  },
   "Index": {
     "accounts": "Accounts",
     "beta": "Beta - Limit funds and use at your own risk.",
