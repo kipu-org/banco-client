@@ -2,8 +2,8 @@
 
 ## Supported Versions
 
-All versions.
+None. This project is deprecated and no longer receives security updates, including fixes for reported vulnerabilities.
 
 ## Reporting a Vulnerability
 
-Please report all security vulnerabilities to [ap@amboss.tech](mailto:ap@amboss.tech).
+Please report all security vulnerabilities to [security@amboss.tech](mailto:security@amboss.tech).
