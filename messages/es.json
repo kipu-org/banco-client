@@ -186,11 +186,11 @@
     "your-password": "Tu contraseña"
   },
   "Deprecation": {
-    "banner": "BancoLibre será descontinuado. Por favor mueve tus fondos a otra billetera, como la",
+    "banner": "BancoLibre será descontinuado y dejará de funcionar el 30 de septiembre de 2026. Por favor mueve tus fondos antes de esa fecha a otra billetera, como la",
     "banner-link": "aplicación de Blockstream.",
     "how-to": "¿Cómo muevo mis fondos?",
     "dialog-title": "Mueve tus fondos a la aplicación de Blockstream",
-    "dialog-description": "BancoLibre dejará de funcionar. Sigue estos pasos para recuperar tu frase semilla y acceder a tus fondos en la aplicación de Blockstream.",
+    "dialog-description": "BancoLibre dejará de funcionar el 30 de septiembre de 2026. Sigue estos pasos antes de esa fecha para recuperar tu frase semilla y acceder a tus fondos en la aplicación de Blockstream.",
     "step-one": "Ve a la <link>configuración de tu billetera</link>, desbloquea con tu contraseña y descifra tu mnemónico (frase semilla).",
     "step-two": "Copia las 12 palabras y guárdalas en un lugar seguro. Cualquier persona con estas palabras puede acceder a tus fondos.",
     "step-three": "Descarga la <link>aplicación de Blockstream</link> en tu teléfono o computadora.",

@@ -186,11 +186,11 @@
     "your-password": "Your password"
   },
   "Deprecation": {
-    "banner": "BancoLibre is being deprecated. Please move your funds to another wallet, such as the",
+    "banner": "BancoLibre is being deprecated and will shut down on September 30, 2026. Please move your funds before then to another wallet, such as the",
     "banner-link": "Blockstream app.",
     "how-to": "How do I move my funds?",
     "dialog-title": "Move your funds to the Blockstream app",
-    "dialog-description": "BancoLibre is shutting down. Follow these steps to recover your seed phrase and access your funds in the Blockstream app.",
+    "dialog-description": "BancoLibre is shutting down on September 30, 2026. Follow these steps before then to recover your seed phrase and access your funds in the Blockstream app.",
     "step-one": "Go to <link>Wallet Settings</link>, unlock with your password and decrypt your mnemonic (seed phrase).",
     "step-two": "Copy the 12 words and store them somewhere safe. Anyone with these words can access your funds.",
     "step-three": "Download the <link>Blockstream app</link> on your phone or computer.",
