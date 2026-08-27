@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint && pnpx prettier . --check",
+    "lint": "next lint && prettier . --check",
     "format": "prettier --write .",
     "upgrade-latest": "pnpm up --interactive --latest",
     "generate": "graphql-codegen --config codegen.yml",
